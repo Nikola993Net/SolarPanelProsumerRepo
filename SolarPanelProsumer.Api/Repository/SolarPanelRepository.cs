@@ -5,28 +5,41 @@ namespace SolarPanelProsumer.Api.Repository
 {
     public class SolarPanelRepository : ISolarPanelRepository
     {
+        private readonly ILogger<SolarPanelRepository> _logger;
+
+        public SolarPanelRepository(ILogger<SolarPanelRepository> logger)
+        {
+                _logger = logger;
+        }
+
         public void Add(SolarPanel solarPanel)
         {
+            _logger.LogInformation(" Addint repository method is staring");
             solarPanels.Add(solarPanel);
+            _logger.LogInformation(" Addint repository method is finished");
         }
 
         public void Delete(SolarPanel solarPanel)
         {
+            _logger.LogInformation(" Deleting repository method is staring");
             solarPanels.RemoveAll(x => x.ID == solarPanel.ID);
         }
 
         public IQueryable<SolarPanel> GetAll()
         {
+            _logger.LogInformation("Gettling all prosumer from base");
             return solarPanels.AsQueryable();  
         }
 
         public SolarPanel GetById(int id)
         {
+            _logger.LogInformation($"Get the prosumer with Id {id}");
             return solarPanels.FirstOrDefault(sp => sp.ID == id) is SolarPanel panel? panel : new SolarPanel();
         }
 
         public void Update(SolarPanel solarPanel)
         {
+            _logger.LogInformation($"Prosumer {solarPanel.ID} is updating");
             var panel = solarPanels.FirstOrDefault(sp => sp.ID == solarPanel.ID);
             if (panel != null)
                 panel = solarPanel;

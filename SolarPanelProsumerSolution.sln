@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarPanelProsumer.Api", "SolarPanelProsumer.Api\SolarPanelProsumer.Api.csproj", "{644845E4-BA6A-4DA3-B2C1-3B1CAFF065B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarPanelProsumer.Api", "SolarPanelProsumer.Api\SolarPanelProsumer.Api.csproj", "{644845E4-BA6A-4DA3-B2C1-3B1CAFF065B7}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{644845E4-BA6A-4DA3-B2C1-3B1CAFF065B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{644845E4-BA6A-4DA3-B2C1-3B1CAFF065B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{644845E4-BA6A-4DA3-B2C1-3B1CAFF065B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

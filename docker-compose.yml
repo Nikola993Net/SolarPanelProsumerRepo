@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  solarpanelprosumer.api:
+    image: ${DOCKER_REGISTRY-}solarpanelprosumerapi
+    build:
+      context: .
+      dockerfile: SolarPanelProsumer.Api/Dockerfile
+    depends_on: 
+      - seq_in_solar
+
+  seq_in_solar:    
+    image: datalust/seq    
+    ports:
+      - '8005:80'      
+    environment:
+      - ACCEPT_EULA=Y 
