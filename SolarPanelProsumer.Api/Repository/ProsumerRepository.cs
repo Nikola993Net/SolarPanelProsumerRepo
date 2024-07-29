@@ -1,4 +1,5 @@
-﻿using SolarPanelProsumer.Api.Interafaces;
+﻿using SolarPanelProsumer.Api.Integrations;
+using SolarPanelProsumer.Api.Interafaces;
 using SolarPanelProsumer.Api.Model;
 using System.Net;
 
@@ -7,10 +8,12 @@ namespace SolarPanelProsumer.Api.Repository
     public class ProsumerRepository : IProsumerRepository
     {
         private readonly ILogger<IProsumerRepository> _logger;
+        private readonly ISunnyHoursProcessingNotification _sunnyHoursNotification;
 
-        public ProsumerRepository(ILogger<IProsumerRepository> logger)
+        public ProsumerRepository(ILogger<IProsumerRepository> logger, ISunnyHoursProcessingNotification sunnyRepository)
         {
             _logger = logger;
+            _sunnyHoursNotification = sunnyRepository;
         }
 
         public void Add(Prosumer prosumer)
@@ -63,7 +66,21 @@ namespace SolarPanelProsumer.Api.Repository
 
         }
 
-      
+        public void UpdateSunnyHours(int id, float sunnyHours)
+        {
+            var prosumer = AllProducts.FirstOrDefault(x => x.ID == id);
+            if (prosumer != null)
+            {
+                _logger.LogInformation($"Prosumer {prosumer} will be updated");
+                _sunnyHoursNotification.SunnyHoursSend(prosumer, (decimal) sunnyHours);
+            }
+            else
+            {
+                _logger.LogCritical($"Prosumer with {id} is not found");
+            }
+            
+        }
+
         static List<Prosumer> AllProducts =  new List<Prosumer>
             {
                 new Prosumer() { ID = 1, Name = "Nikola", Surname = "Nikolic", DalyPowerConsuption = (decimal)35.62, SunnyHourPerDay = (decimal)10.0, GeneratePower = (decimal)10.0, PulledPower = (decimal)25.62 },

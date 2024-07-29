@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using SolarPanelProsumer.Api.Interafaces;
 using SolarPanelProsumer.Api.Model;
 
@@ -51,6 +52,17 @@ namespace SolarPanelProsumer.Api.Controllers
         public IActionResult DeleteProsumer(int id)
         {
             _prosumerRepository.Delete(_prosumerRepository.GetById(id));
+            return Ok();
+        }
+
+        //[Route("Updating")]
+        [HttpPut("{prosumerID}/newSunnyHours")]
+        public IActionResult UpdateSunnyHours( int prosumerID, [FromBody] float newSunnyHours)
+        {
+            Log.Information($"Update Prosumer: {prosumerID} set new sunny hours value: {newSunnyHours}");
+
+            _prosumerRepository.UpdateSunnyHours(prosumerID, newSunnyHours);
+            //_prosumerRepository.GetById(prosumerID);
             return Ok();
         }
     }

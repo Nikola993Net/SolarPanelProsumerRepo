@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarPanelProsumer.Api", "S
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarPanelProsumer.App", "SolarPanelProsumer.App\SolarPanelProsumer.App.csproj", "{11F35624-6158-42BF-BE53-6B0041CEC799}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEED0E14-4DBC-4B3E-A0CA-4B7E68CBDAE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11F35624-6158-42BF-BE53-6B0041CEC799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11F35624-6158-42BF-BE53-6B0041CEC799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11F35624-6158-42BF-BE53-6B0041CEC799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11F35624-6158-42BF-BE53-6B0041CEC799}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

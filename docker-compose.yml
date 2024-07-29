@@ -8,6 +8,16 @@ services:
       dockerfile: SolarPanelProsumer.Api/Dockerfile
     depends_on: 
       - seq_in_solar
+      - rabbit_in_solar
+
+  solarpanelprosumer.app:
+    build:
+      context: .
+      dockerfile: SolarPanelProsumer.App/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on: 
+      - seq_in_solar
 
   seq_in_solar:    
     image: datalust/seq    
@@ -15,3 +25,8 @@ services:
       - '8005:80'      
     environment:
       - ACCEPT_EULA=Y 
+
+  rabbit_in_solar:
+    image: rabbitmq:3-management
+    ports:
+      - 8088:15672

@@ -3,6 +3,8 @@ using SolarPanelProsumer.Api.Repository;
 using Serilog;
 using Serilog.Events;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using SolarPanelProsumer.Api.Integrations;
+using Microsoft.OpenApi.Models;
 
 var name = typeof(Program).Assembly.GetName().Name;
 
@@ -33,11 +35,15 @@ try
     // Add services to the container.
     builder.Services.AddScoped<IProsumerRepository, ProsumerRepository>();
     builder.Services.AddScoped<ISolarPanelRepository, SolarPanelRepository>();
+    builder.Services.AddSingleton<ISunnyHoursProcessingNotification, SunnyHoursProcessingNotification>();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen( c=>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "SolarPanelProsumer.Api", Version = "v1", Description = "Practice project" });
+    });
 
     var app = builder.Build();
 
@@ -45,7 +51,7 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SolarPanelProsumer.Api v1"));
     }
 
     app.UseHttpsRedirection();

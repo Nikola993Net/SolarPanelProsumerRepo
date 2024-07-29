@@ -9,5 +9,6 @@ namespace SolarPanelProsumer.Api.Interafaces
         void Add(Prosumer prosumer);
         void Update(Prosumer prosumer);
         void Delete(Prosumer prosumer);
+        void UpdateSunnyHours(int id, float sunnyHours);
     }
 }
