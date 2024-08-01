@@ -3,6 +3,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text.Json;
 using SolarPanelProsumer.App.Models;
+using SolarPanelProsumer.App.Reflection;
 
 namespace SolarPanelProsumer.App
 {
@@ -59,6 +60,9 @@ namespace SolarPanelProsumer.App
             Log.ForContext("UpdaterHoursReceived", updaterInfo, true)
                 .Information("Received message from SolarPanelProsumer Api project");
 
+            var instaceOfOtherClass =
+                ReflectionHelper.GetInstanceOfClass("SolarPanelProsumer.App.Models.Prosumer");
+            Log.Information($"The instance of other class is {instaceOfOtherClass}");
             //TODO: At this place should call the DataBase and sned the query for updating sunny hours of the prosmuer 
         }
     }

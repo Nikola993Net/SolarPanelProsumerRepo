@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SolarPanelProsumer.App.Models
+﻿namespace SolarPanelProsumer.App.Models
 {
     public class UpdateSunnyHoursReceivedMessage
     {
         /// <summary>
         /// Prosumer - represents the prosumer where the sunny hours will be updated
         /// </summary>
-        public Prosumer Prosumer { get; set; }
+        public Prosumer? Prosumer { get; set; }
         /// <summary>
         /// The value which should be set in the prosumer for the sunny hour
         /// </summary>
         public decimal NewSunnyHours { get; set; }
+            
     }
 
     public class Prosumer
