@@ -9,6 +9,7 @@ services:
     depends_on: 
       - seq_in_solar
       - rabbit_in_solar
+      - prosumerrecordshistory
 
   solarpanelprosumer.app:
     build:
@@ -30,3 +31,15 @@ services:
     image: rabbitmq:3-management
     ports:
       - 8088:15672
+ 
+  prosumerrecordshistory:
+    image: ${DOCKER_REGISTRY-}prosumerrecordshistory
+    build:
+      context: .
+      dockerfile: ProsumerRecordsHistory/Dockerfile
+    ports:
+      - '8010:8080'
+    depends_on:
+      - seq_in_solar
+      
+

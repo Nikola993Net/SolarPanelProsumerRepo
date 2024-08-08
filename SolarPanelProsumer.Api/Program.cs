@@ -5,6 +5,7 @@ using Serilog.Events;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using SolarPanelProsumer.Api.Integrations;
 using Microsoft.OpenApi.Models;
+using SolarPanelProsumer.Api.Services;
 
 var name = typeof(Program).Assembly.GetName().Name;
 
@@ -36,6 +37,13 @@ try
     builder.Services.AddScoped<IProsumerRepository, ProsumerRepository>();
     builder.Services.AddScoped<ISolarPanelRepository, SolarPanelRepository>();
     builder.Services.AddSingleton<ISunnyHoursProcessingNotification, SunnyHoursProcessingNotification>();
+    builder.Services.AddScoped<IProsumerRecordsService, ProsumerRecordsService>();
+    var ProsumerRecordsUrl = builder.Configuration["Services:ProsumerRecords"];
+    Log.Information($"Url for prossumer records is: {ProsumerRecordsUrl}");
+    builder.Services.AddHttpClient("ProusmerRecordsSerivce", config =>
+    {
+        config.BaseAddress = new Uri(ProsumerRecordsUrl);
+    });
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

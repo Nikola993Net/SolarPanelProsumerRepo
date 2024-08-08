@@ -5,9 +5,9 @@ namespace SolarPanelProsumer.Api.Repository
 {
     public class SolarPanelRepository : ISolarPanelRepository
     {
-        private readonly ILogger<SolarPanelRepository> _logger;
+        private readonly ILogger<ISolarPanelRepository> _logger;
 
-        public SolarPanelRepository(ILogger<SolarPanelRepository> logger)
+        public SolarPanelRepository(ILogger<ISolarPanelRepository> logger)
         {
                 _logger = logger;
         }

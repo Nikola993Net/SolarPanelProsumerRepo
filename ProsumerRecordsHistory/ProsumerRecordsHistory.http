@@ -1,0 +1,6 @@
+@ProsumerRecordsHistory_HostAddress = http://localhost:5032
+
+GET {{ProsumerRecordsHistory_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
