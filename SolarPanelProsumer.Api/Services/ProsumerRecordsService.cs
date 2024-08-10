@@ -1,7 +1,11 @@
 ﻿using Serilog;
 using SolarPanelProsumer.Api.Interafaces;
 using SolarPanelProsumer.Api.Model;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Policy;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SolarPanelProsumer.Api.Services
 {
@@ -64,6 +68,72 @@ namespace SolarPanelProsumer.Api.Services
             {
                 Log.Error(ex.Message);
                 return (false, null, ex.Message);
+            }
+        }
+
+        public async Task<bool> AddProsumerRecordsAsync(ProsumerRecord record)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient("ProusmerRecordsSerivce");
+                Log.Information($"Prosumer records clietn is created {client}");
+                var dataAsString = JsonSerializer.Serialize(record);
+                var content = new StringContent(dataAsString);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var response = await client.PostAsync($"api/prosumerRecords", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception ex) 
+            {
+                Log.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateProsumerRecordsAsync(ProsumerRecord record)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient("ProusmerRecordsSerivce");
+                Log.Information($"Prosumer records clietn is created {client}");
+                var dataAsString = JsonSerializer.Serialize(record);
+                var content = new StringContent(dataAsString);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var response = await client.PutAsync($"api/prosumerRecords", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteProsumerRecordsAsync(int prosumerId)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient("ProusmerRecordsSerivce");
+                Log.Information($"Prosumer records clietn is created {client}");
+                var respone = await client.DeleteAsync($"api/prosumerRecords/{prosumerId}");
+                if (respone.IsSuccessStatusCode) 
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                return false;
             }
         }
     }

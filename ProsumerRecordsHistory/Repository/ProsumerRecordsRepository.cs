@@ -72,5 +72,67 @@ namespace ProsumerRecordsHistory.Repository
                 return (false, null, ex.Message);
             }
         }
+
+        public async Task<bool> AddProsumerRecordAsync(ProsumerRecord prosumerRecod)
+        {
+            try
+            {
+                _logger?.LogInformation("Adding the prosumer record");
+                var record = _mapper.Map<ProsumerRecord, ProsumerRecordDbModel>(prosumerRecod);
+                if (record != null)
+                {
+                    _context.ProsumerRecords.Add(record);
+                    return (await _context.SaveChangesAsync() > 0);
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex.ToString());
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateProsumerRecordAsyc(ProsumerRecord record)
+        {
+            try
+            {
+                _logger?.LogInformation("Updating the prosumer record");
+                var newRecord = _mapper.Map<ProsumerRecord, ProsumerRecordDbModel>(record);
+                var oldProsumer = _context.ProsumerRecords.FirstOrDefault(x => x.ID == newRecord.ID);
+                if (oldProsumer != null)
+                {
+                    oldProsumer.PowerPulled = newRecord.PowerPulled;
+                    oldProsumer.PowerGenerated = newRecord.PowerGenerated;
+                    oldProsumer.PowerConsumped = newRecord.PowerConsumped;
+                    oldProsumer.Day = newRecord.Day;
+                    return (await _context.SaveChangesAsync() > 0);
+                }
+                return false;
+            }
+            catch (Exception ex) 
+            {
+                _logger?.LogError(ex.ToString());
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteProsumerRecordAsync(ProsumerRecord record)
+        {
+            try
+            {
+                //var newRecord = _mapper.Map<ProsumerRecord, ProsumerRecordDbModel>(record);
+                var prosuerRecord = await _context.ProsumerRecords.FirstOrDefaultAsync(x => x.ID == record.ID);
+                _logger?.LogInformation("Deleting the prosumer record");
+                _context.ProsumerRecords.Remove(prosuerRecord);
+                return await _context.SaveChangesAsync() > 0;
+
+            }
+            catch (Exception ex) 
+            {
+                _logger?.LogError(ex.ToString());
+                return false;
+            }
+        }
     }
 }
