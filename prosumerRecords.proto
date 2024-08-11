@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "RecordsHistory.Grpc";
+
+package API;
+
+service ProsumerRecords {
+	rpc GetProsumerRecord (GetProsumerRecrodByIdRequest) returns (GetProsumerRecordByIdResponse) {}
+}
+
+message GetProsumerRecrodByIdRequest {
+	int32 RecordId = 1;
+}
+
+message GetProsumerRecordByIdResponse {
+	ProsumerRecord record = 1;
+}
+
+message ProsumerRecord {
+	int32 ID = 1;
+	float PowerGenerated = 2;
+	float PowerConsumped = 3;
+	float PowerPulled = 4;
+	google.protobuf.Timestamp Day = 5;
+}

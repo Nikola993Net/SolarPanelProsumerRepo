@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProsumerRecordsHistory.Db;
 using ProsumerRecordsHistory.Interface;
 using ProsumerRecordsHistory.Repository;
+using ProsumerRecordsHistory.Services;
 
 var name = typeof(Program).Assembly.GetName().Name;
 Log.Logger = new LoggerConfiguration()
@@ -32,6 +33,7 @@ try
     builder.Services.AddScoped<IProsumerRecordsRepository, ProsumerRecordsRepository>();
 
     builder.Services.AddControllers();
+    builder.Services.AddGrpc();
 
     builder.Services.AddCors(options =>
     {
@@ -65,6 +67,14 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+    app.MapGrpcService<ProsumerRecordsService>();
+    app.MapGet("/", () => "Use a gRPC client to communicate with the gRPC endpoints.");
+
+    //app.UseEndpoints(endpoints =>
+    //{
+    //    endpoints.MapControllers();
+    //    endpoints.MapGrpcService<ProsumerRecordsService>();
+    //});
 
     app.Run();
 }

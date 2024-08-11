@@ -6,6 +6,8 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using SolarPanelProsumer.Api.Integrations;
 using Microsoft.OpenApi.Models;
 using SolarPanelProsumer.Api.Services;
+using RecordsHistory.Grpc;
+using Humanizer;
 
 var name = typeof(Program).Assembly.GetName().Name;
 
@@ -44,6 +46,8 @@ try
     {
         config.BaseAddress = new Uri(ProsumerRecordsUrl);
     });
+
+    builder.Services.AddGrpcClient<ProsumerRecords.ProsumerRecordsClient>(o => o.Address = new Uri(ProsumerRecordsUrl));
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
